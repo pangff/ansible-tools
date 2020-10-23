@@ -1,0 +1,6 @@
+{
+    "elk_project_home": "部署服务",
+    "repo":"部署服务下载地址",
+    "over_ssh_user":"代理服务器用户名",
+    "over_ssh_host": "代理服务器ip"
+}

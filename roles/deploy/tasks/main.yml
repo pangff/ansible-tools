@@ -1,0 +1,24 @@
+- name: Creates directory
+  file:
+    path: /data
+    state: directory
+    owner: "{{ansible_ssh_user}}"
+    group: "{{ansible_ssh_user}}"
+    mode: 0775
+    recurse: yes
+
+- name: Install rsync
+  yum:
+    name: rsync
+    state: latest
+
+- name: Synchronize metricbeat config
+  synchronize:
+    src: metricbeat
+    dest: "/data"
+
+
+- name: Start container
+  command: docker-compose -f docker-compose.metricbeat.yml up -d
+  args:
+    chdir: "/data/metricbeat"

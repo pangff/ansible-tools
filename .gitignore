@@ -1,0 +1,3 @@
+/vars/config.json
+/roles/deploy/templates/.env.j2
+*.DS_Store

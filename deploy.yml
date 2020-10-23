@@ -1,0 +1,7 @@
+---
+- name: deploy metricebeat
+  gather_facts: true
+  hosts: "{{host}}"
+  remote_user: '{{ansible_ssh_user}}'
+  roles:
+    - deploy

@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+
+  metricbeat_system:
+    image: docker.elastic.co/beats/metricbeat:$ELK_VERSION
+    container_name: metricbeat-system
+    user: root
+    network_mode: "host"
+    volumes:
+      - ./metricbeat-system/ilm.json:/usr/share/metricbeat/ilm.json:ro
+      - ./metricbeat-system/config.yml:/usr/share/metricbeat/metricbeat.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      - /proc:/hostfs/proc:ro
+      - /:/hostfs:ro
+    environment:
+      ELASTICSEARCH_HOSTS: $ELASTIC_SERVER_HOST:9200
+      KIBANA_HOST: $ELASTIC_SERVER_HOST:5601
+
+    command: ["--strict.perms=false", "-system.hostfs=/hostfs"]
+
+  metricbeat_nginx:
+    image: docker.elastic.co/beats/metricbeat:$ELK_VERSION
+    container_name: metricbeat-nginx
+    user: root
+    network_mode: "host"
+    volumes:
+      - ./metricbeat-nginx/ilm.json:/usr/share/metricbeat/ilm.json:ro
+      - ./metricbeat-nginx/config.yml:/usr/share/metricbeat/metricbeat.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      - /proc:/hostfs/proc:ro
+      - /:/hostfs:ro
+    environment:
+      ELASTICSEARCH_HOSTS: $ELASTIC_SERVER_HOST:9200
+      KIBANA_HOST: $ELASTIC_SERVER_HOST:5601
+
+    command: ["--strict.perms=false", "-system.hostfs=/hostfs"]
