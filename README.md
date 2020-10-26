@@ -62,5 +62,5 @@ KIBANA_HOST=localhost  远程kibana地址
 部署
 
 ```
-ansible-playbook deploy.yml --extra-vars "host=pffair"
+ansible-playbook deploy.yml --extra-vars "host=metricbeat"
 ```
